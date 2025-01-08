@@ -5,7 +5,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/KalinduGandara/crm-system/db/mongo/mocks"
+	"github.com/KalinduGandara/crm-system/db/mocks"
 	"github.com/KalinduGandara/crm-system/domain"
 	"github.com/KalinduGandara/crm-system/repository"
 	"github.com/stretchr/testify/assert"
