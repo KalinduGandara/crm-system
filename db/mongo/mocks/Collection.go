@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	mongo "github.com/KalinduGandara/crm-system/db/mongo"
+	"github.com/KalinduGandara/crm-system/db"
 	mock "github.com/stretchr/testify/mock"
 
 	mongo_drivermongo "go.mongodb.org/mongo-driver/mongo"
@@ -19,15 +19,15 @@ type Collection struct {
 }
 
 // Aggregate provides a mock function with given fields: _a0, _a1
-func (_m *Collection) Aggregate(_a0 context.Context, _a1 interface{}) (mongo.Cursor, error) {
+func (_m *Collection) Aggregate(_a0 context.Context, _a1 interface{}) (db.Cursor, error) {
 	ret := _m.Called(_a0, _a1)
 
-	var r0 mongo.Cursor
-	if rf, ok := ret.Get(0).(func(context.Context, interface{}) mongo.Cursor); ok {
+	var r0 db.Cursor
+	if rf, ok := ret.Get(0).(func(context.Context, interface{}) db.Cursor); ok {
 		r0 = rf(_a0, _a1)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(mongo.Cursor)
+			r0 = ret.Get(0).(db.Cursor)
 		}
 	}
 
@@ -91,7 +91,7 @@ func (_m *Collection) DeleteOne(_a0 context.Context, _a1 interface{}) (int64, er
 }
 
 // Find provides a mock function with given fields: _a0, _a1, _a2
-func (_m *Collection) Find(_a0 context.Context, _a1 interface{}, _a2 ...*options.FindOptions) (mongo.Cursor, error) {
+func (_m *Collection) Find(_a0 context.Context, _a1 interface{}, _a2 ...*options.FindOptions) (db.Cursor, error) {
 	_va := make([]interface{}, len(_a2))
 	for _i := range _a2 {
 		_va[_i] = _a2[_i]
@@ -101,12 +101,12 @@ func (_m *Collection) Find(_a0 context.Context, _a1 interface{}, _a2 ...*options
 	_ca = append(_ca, _va...)
 	ret := _m.Called(_ca...)
 
-	var r0 mongo.Cursor
-	if rf, ok := ret.Get(0).(func(context.Context, interface{}, ...*options.FindOptions) mongo.Cursor); ok {
+	var r0 db.Cursor
+	if rf, ok := ret.Get(0).(func(context.Context, interface{}, ...*options.FindOptions) db.Cursor); ok {
 		r0 = rf(_a0, _a1, _a2...)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(mongo.Cursor)
+			r0 = ret.Get(0).(db.Cursor)
 		}
 	}
 
@@ -121,15 +121,15 @@ func (_m *Collection) Find(_a0 context.Context, _a1 interface{}, _a2 ...*options
 }
 
 // FindOne provides a mock function with given fields: _a0, _a1
-func (_m *Collection) FindOne(_a0 context.Context, _a1 interface{}) mongo.SingleResult {
+func (_m *Collection) FindOne(_a0 context.Context, _a1 interface{}) db.SingleResult {
 	ret := _m.Called(_a0, _a1)
 
-	var r0 mongo.SingleResult
-	if rf, ok := ret.Get(0).(func(context.Context, interface{}) mongo.SingleResult); ok {
+	var r0 db.SingleResult
+	if rf, ok := ret.Get(0).(func(context.Context, interface{}) db.SingleResult); ok {
 		r0 = rf(_a0, _a1)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(mongo.SingleResult)
+			r0 = ret.Get(0).(db.SingleResult)
 		}
 	}
 

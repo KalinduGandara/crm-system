@@ -5,7 +5,7 @@ package mocks
 import (
 	context "context"
 
-	mongo "github.com/KalinduGandara/crm-system/db/mongo"
+	"github.com/KalinduGandara/crm-system/db"
 	mock "github.com/stretchr/testify/mock"
 
 	mongo_drivermongo "go.mongodb.org/mongo-driver/mongo"
@@ -31,15 +31,15 @@ func (_m *Client) Connect(_a0 context.Context) error {
 }
 
 // Database provides a mock function with given fields: _a0
-func (_m *Client) Database(_a0 string) mongo.Database {
+func (_m *Client) Database(_a0 string) db.Database {
 	ret := _m.Called(_a0)
 
-	var r0 mongo.Database
-	if rf, ok := ret.Get(0).(func(string) mongo.Database); ok {
+	var r0 db.Database
+	if rf, ok := ret.Get(0).(func(string) db.Database); ok {
 		r0 = rf(_a0)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(mongo.Database)
+			r0 = ret.Get(0).(db.Database)
 		}
 	}
 

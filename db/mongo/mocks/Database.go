@@ -3,7 +3,7 @@
 package mocks
 
 import (
-	mongo "github.com/KalinduGandara/crm-system/db/mongo"
+	"github.com/KalinduGandara/crm-system/db"
 	mock "github.com/stretchr/testify/mock"
 )
 
@@ -13,15 +13,15 @@ type Database struct {
 }
 
 // Client provides a mock function with given fields:
-func (_m *Database) Client() mongo.Client {
+func (_m *Database) Client() db.Client {
 	ret := _m.Called()
 
-	var r0 mongo.Client
-	if rf, ok := ret.Get(0).(func() mongo.Client); ok {
+	var r0 db.Client
+	if rf, ok := ret.Get(0).(func() db.Client); ok {
 		r0 = rf()
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(mongo.Client)
+			r0 = ret.Get(0).(db.Client)
 		}
 	}
 
@@ -29,15 +29,15 @@ func (_m *Database) Client() mongo.Client {
 }
 
 // Collection provides a mock function with given fields: _a0
-func (_m *Database) Collection(_a0 string) mongo.Collection {
+func (_m *Database) Collection(_a0 string) db.Collection {
 	ret := _m.Called(_a0)
 
-	var r0 mongo.Collection
-	if rf, ok := ret.Get(0).(func(string) mongo.Collection); ok {
+	var r0 db.Collection
+	if rf, ok := ret.Get(0).(func(string) db.Collection); ok {
 		r0 = rf(_a0)
 	} else {
 		if ret.Get(0) != nil {
-			r0 = ret.Get(0).(mongo.Collection)
+			r0 = ret.Get(0).(db.Collection)
 		}
 	}
 

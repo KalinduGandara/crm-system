@@ -5,11 +5,11 @@ import (
 
 	"github.com/KalinduGandara/crm-system/api/middleware"
 	"github.com/KalinduGandara/crm-system/bootstrap"
-	"github.com/KalinduGandara/crm-system/db/mongo"
+	"github.com/KalinduGandara/crm-system/db"
 	"github.com/gin-gonic/gin"
 )
 
-func Setup(env *bootstrap.Env, timeout time.Duration, db mongo.Database, gin *gin.Engine) {
+func Setup(env *bootstrap.Env, timeout time.Duration, db db.Database, gin *gin.Engine) {
 	publicRouter := gin.Group("")
 	// All Public APIs
 	NewSignupRouter(env, timeout, db, publicRouter)

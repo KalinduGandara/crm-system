@@ -10,10 +10,11 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 
+	"github.com/KalinduGandara/crm-system/db"
 	"github.com/KalinduGandara/crm-system/db/mongo"
 )
 
-func NewMongoDatabase(env *Env) mongo.Client {
+func NewMongoDatabase(env *Env) db.Client {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
@@ -46,7 +47,7 @@ func NewMongoDatabase(env *Env) mongo.Client {
 	return client
 }
 
-func CloseMongoDBConnection(client mongo.Client) {
+func CloseMongoDBConnection(client db.Client) {
 	if client == nil {
 		return
 	}

@@ -3,7 +3,7 @@ package repository
 import (
 	"context"
 
-	"github.com/KalinduGandara/crm-system/db/mongo"
+	"github.com/KalinduGandara/crm-system/db"
 	"github.com/KalinduGandara/crm-system/domain"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -11,11 +11,11 @@ import (
 )
 
 type userRepository struct {
-	database   mongo.Database
+	database   db.Database
 	collection string
 }
 
-func NewUserRepository(db mongo.Database, collection string) domain.UserRepository {
+func NewUserRepository(db db.Database, collection string) domain.UserRepository {
 	return &userRepository{
 		database:   db,
 		collection: collection,

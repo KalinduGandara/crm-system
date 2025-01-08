@@ -1,19 +1,19 @@
 package bootstrap
 
-import "github.com/KalinduGandara/crm-system/db/mongo"
+import "github.com/KalinduGandara/crm-system/db"
 
 type Application struct {
-	Env   *Env
-	Mongo mongo.Client
+	Env *Env
+	DB  db.Client
 }
 
 func App() Application {
 	app := &Application{}
 	app.Env = NewEnv()
-	app.Mongo = NewMongoDatabase(app.Env)
+	app.DB = NewMongoDatabase(app.Env)
 	return *app
 }
 
 func (app *Application) CloseDBConnection() {
-	CloseMongoDBConnection(app.Mongo)
+	CloseMongoDBConnection(app.DB)
 }
