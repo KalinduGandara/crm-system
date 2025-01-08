@@ -10,10 +10,10 @@ type Application struct {
 func App() Application {
 	app := &Application{}
 	app.Env = NewEnv()
-	app.DB = NewMongoDatabase(app.Env)
+	app.DB = NewMySQLDatabase(app.Env)
 	return *app
 }
 
 func (app *Application) CloseDBConnection() {
-	CloseMongoDBConnection(app.DB)
+	CloseMySQLDBConnection(app.DB)
 }

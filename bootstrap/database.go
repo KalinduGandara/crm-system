@@ -4,14 +4,12 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"strconv"
 	"time"
-
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
-	"gorm.io/gorm/logger"
 
 	"github.com/KalinduGandara/crm-system/db"
 	"github.com/KalinduGandara/crm-system/db/mongo"
+	"github.com/KalinduGandara/crm-system/db/mysql"
 )
 
 func NewMongoDatabase(env *Env) db.Client {
@@ -60,21 +58,45 @@ func CloseMongoDBConnection(client db.Client) {
 	log.Println("Connection to MongoDB closed.")
 }
 
-func NewMySQLDatabase(dbName, user, password, host string, port int) error {
-	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True&loc=Local", user, password, host, port, dbName)
-	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{
-		Logger: logger.Default.LogMode(logger.Silent),
-	})
+func NewMySQLDatabase(env *Env) db.Client {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	dbPort, err := strconv.Atoi(env.DBPort)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
 
-	sqlDB, err := db.DB()
+	client, err := mysql.NewClient(env.DBUser, env.DBPass, env.DBHost, dbPort, env.DBName)
 	if err != nil {
-		return err
+		log.Fatal(err)
 	}
-	defer sqlDB.Close()
 
-	log.Printf("Database %s created successfully using GORM", dbName)
-	return nil
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = client.Connect(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	err = client.Ping(ctx)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return client
+}
+
+func CloseMySQLDBConnection(client db.Client) {
+	if client == nil {
+		return
+	}
+
+	err := client.Disconnect(context.TODO())
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Println("Connection to MySQL closed.")
 }
